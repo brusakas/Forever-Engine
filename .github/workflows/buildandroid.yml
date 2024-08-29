@@ -14,20 +14,21 @@ jobs:
           submodules: true
 
       - name: Setup Java JDK
-        uses: actions/setup-java@main
+        uses: actions/setup-java@v4.2.2
         with:
           distribution: 'temurin'
           java-version: '17'
 
-      - name: Setup Haxe
-        uses: krdlab/setup-haxe@master
+      - name: Setup Haxe environment
+        uses: krdlab/setup-haxe@v1.5.1
         with:
           haxe-version: 4.2.5
 
       - name: Install Libraries
         run: | 
-          haxelib setup ~/haxelib
-          haxelib install hxcpp
+          mkdir "%HAXELIB_ROOT%"
+          haxelib setup "%HAXELIB_ROOT%"
+          haxelib install hxcpp > /dev/null
           haxelib install lime 7.9.0 --quiet
           haxelib install openfl 9.1.0 --quiet
           haxelib --never install flixel 4.9.0 --quiet
