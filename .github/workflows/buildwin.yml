@@ -31,8 +31,8 @@ jobs:
         run: |
           choco install haxe --version 4.2.5 -y
           RefreshEnv
-          haxelib set C:/~haxelib
-          haxelib install lime 7.8.0
+          mkdir "%HAXELIB_ROOT%"
+          haxelib setup "%HAXELIB_ROOT%"          haxelib install lime 7.8.0
           RefreshEnv
           haxelib install openfl 9.1.0
           haxelib install flixel 4.8.1
@@ -41,6 +41,7 @@ jobs:
           haxelib install hscript
           haxelib install newgrounds
           haxelib run lime setup
+          haxelib run lime setup flixel
           haxelib install flixel-tools
           haxelib run flixel-tools setup
           haxelib git polymod https://github.com/larsiusprime/polymod.git
