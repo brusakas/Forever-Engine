@@ -31,13 +31,13 @@ jobs:
         run: |
           choco install haxe --version 4.2.5 -y
           RefreshEnv
-          mkdir "%HAXELIB_ROOT%"
-          haxelib setup "%HAXELIB_ROOT%"          haxelib install lime 7.8.0
+          haxelib setup ~/haxelib     
+          haxelib install lime 7.8.0
           RefreshEnv
           haxelib install openfl 9.1.0
           haxelib install flixel 4.8.1
           haxelib install flixel-ui 2.3.3
-          haxelib git flixel-addons https://github.com/HaxeFlixel/flixel-addons ba2777bb14aa8d2d8d01ad9eeaf51622a2036efd
+          haxelib git flixel-addons 2.10.0
           haxelib install hscript
           haxelib install newgrounds
           haxelib run lime setup
