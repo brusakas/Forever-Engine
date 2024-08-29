@@ -68,7 +68,11 @@ class PlayState extends MusicBeatState
 	public static var assetModifier:String = 'base';
 	public static var changeableSkin:String = 'default';
 
+	#if android
+	private var unspawnNotes:Array<gameObjects.userInterface.Note> = [];
+	#else
 	private var unspawnNotes:Array<Note> = [];
+	#end
 	private var ratingArray:Array<String> = [];
 	private var allSicks:Bool = true;
 
