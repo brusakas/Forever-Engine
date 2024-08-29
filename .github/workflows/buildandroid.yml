@@ -1,0 +1,60 @@
+name: Build Game for Android
+on: workflow_dispatch
+jobs:
+  Android:
+    runs-on: ubuntu-24.04
+    strategy:
+      fail-fast: false
+      matrix:
+        flag: [ONLY_ARMV7, ONLY_ARM64, UNIVERSAL]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@main
+        with:
+          submodules: true
+
+      - name: Setup Java JDK
+        uses: actions/setup-java@main
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Setup Haxe
+        uses: krdlab/setup-haxe@master
+        with:
+          haxe-version: 4.2.5
+
+      - name: Install Libraries
+        run: |
+          haxelib setup ~/haxelib     
+          haxelib install lime 7.8.0
+          haxelib install openfl 9.1.0
+          haxelib install flixel 4.8.1
+          haxelib install flixel-ui 2.3.3
+          haxelib git flixel-addons 2.10.0
+          haxelib install hscript
+          haxelib install newgrounds
+          haxelib run lime setup
+          haxelib run lime setup flixel
+          haxelib install flixel-tools
+          haxelib run flixel-tools setup
+          haxelib git polymod https://github.com/larsiusprime/polymod.git
+          haxelib git discord_rpc https://github.com/Aidan63/linc_discord-rpc
+          haxelib list
+
+      - name: Configure Android
+        run: |
+          haxelib run lime config ANDROID_SDK $ANDROID_HOME
+          haxelib run lime config ANDROID_NDK_ROOT $ANDROID_NDK_LATEST_HOME
+          haxelib run lime config JAVA_HOME $JAVA_HOME
+          haxelib run lime config ANDROID_SETUP true
+
+      - name: Compile
+        run: haxelib run lime build android -D ${{matrix.flag}}
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@main
+        with:
+          name: androidBuild-${{matrix.flag}}
+          path: export/release/android/bin/app/build/outputs/apk/debug
+          if-no-files-found: error
