@@ -36,7 +36,7 @@ jobs:
           haxelib run lime setup flixel
           haxelib run lime setup
           haxelib install flixel-tools
-          haxelib install flixel-addons
+          haxelib git flixel-addons https://github.com/HaxeFlixel/flixel-addons
           haxelib install hscript
           haxelib install newgrounds
           haxelib git polymod https://github.com/larsiusprime/polymod.git
