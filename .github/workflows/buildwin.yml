@@ -44,7 +44,7 @@ jobs:
           haxelib git polymod https://github.com/larsiusprime/polymod.git
           haxelib git discord_rpc https://github.com/Aidan63/linc_discord-rpc
           haxelib list
-        shell: cmd
+        # shell: cmd (no need this shitty thing)
       - name: Create APIStuff
         run: echo "package;class APIStuff{public static var API:String = '';public static var EncKey:String = '';}" > source/APIStuff.hx
       - name: Compile
