@@ -17,31 +17,24 @@ jobs:
         uses: actions/setup-java@v4.2.2
         with:
           distribution: 'temurin'
-          java-version: '17'
+          java-version: '11'
 
       - name: Setup Haxe environment
         uses: krdlab/setup-haxe@v1.5.1
         with:
-          haxe-version: 4.3.1
+          haxe-version: 4.3.4
 
       - name: Install Libraries
-        run: | 
-          sudo add-apt-repository ppa:haxe/releases -y
-          sudo apt-get update
-          sudo apt-get install gcc-multilib g++-multilib haxe -y
-          mkdir "%HAXELIB_ROOT%"
-          haxelib setup "%HAXELIB_ROOT%"
+        run: |
           haxelib install hxcpp
-          haxelib install lime 7.9.0
+          haxelib install lime 7.8.0
           haxelib install openfl
-          haxelib install flixel
-          haxelib install flixel-ui
-          haxelib run lime setup flixel
-          haxelib run lime setup
+          haxelib install flixel 4.8.1
+          haxelib install flixel-ui 2.5.0
           haxelib install flixel-tools
-          haxelib git flixel-addons https://github.com/HaxeFlixel/flixel-addons
+          haxelib install flixel-addons 2.11.0
           haxelib install hscript
-          haxelib install newgrounds
+          haxelib install newgrounds 1.3.0
           haxelib git polymod https://github.com/larsiusprime/polymod.git
           haxelib git discord_rpc https://github.com/Aidan63/linc_discord-rpc
           haxelib list
